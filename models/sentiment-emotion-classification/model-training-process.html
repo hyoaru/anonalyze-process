@@ -8895,6 +8895,153 @@ memory usage: 14.9+ MB
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>Chi-squared test based feature selector to select the most relevant features for a model based on their relationship with the target variable.</p>
+<ul>
+<li><strong>Chi-Squared Test:</strong> The Chi-squared test assesses whether the observed frequencies of features (terms) in the dataset differ significantly from expected frequencies. It measures the independence between features and the target variable.</li>
+<li><strong>Feature Selection with SelectKBest</strong>: SelectKBest uses the Chi-squared test to rank features based on their statistical significance.SelectKBest selects the k features with the highest Chi-squared scores.</li>
+</ul>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">selector_sentiment</span> <span class="o">=</span> <span class="n">SelectKBest</span><span class="p">(</span><span class="n">chi2</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">4500</span><span class="p">)</span>
+<span class="n">selector_emotion</span> <span class="o">=</span> <span class="n">SelectKBest</span><span class="p">(</span><span class="n">chi2</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">4500</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>Defining a class to streamline the transformers</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Transformer</span><span class="p">:</span>
+  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span>
+
+  <span class="k">def</span> <span class="nf">vectorizer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">vectorizer</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+    <span class="k">return</span> <span class="bp">self</span>
+
+  <span class="k">def</span> <span class="nf">selector</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">selector</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">selector</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+    <span class="k">return</span> <span class="bp">self</span>
+
+  <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>Splitting the training and testing data</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">x_sentiment_train</span><span class="p">,</span> <span class="n">x_sentiment_test</span><span class="p">,</span> <span class="n">y_sentiment_train</span><span class="p">,</span> <span class="n">y_sentiment_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+  <span class="n">x</span><span class="p">,</span> <span class="n">y_sentiment</span><span class="p">,</span>
+  <span class="n">test_size</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span>
+  <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span>
+  <span class="n">stratify</span><span class="o">=</span><span class="n">y_sentiment</span><span class="p">,</span> <span class="p">)</span>
+
+<span class="n">selector_sentiment</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span>
+  <span class="n">vectorizer</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">x_sentiment_train</span><span class="p">),</span>
+  <span class="n">y_sentiment_train</span><span class="p">,</span> <span class="p">)</span>
+
+<span class="n">x_sentiment_train_selected</span> <span class="o">=</span> <span class="p">(</span>
+  <span class="n">Transformer</span><span class="p">(</span><span class="n">x_sentiment_train</span><span class="p">)</span>
+  <span class="o">.</span><span class="n">vectorizer</span><span class="p">()</span>
+  <span class="o">.</span><span class="n">selector</span><span class="p">(</span><span class="n">selector_sentiment</span><span class="p">)</span>
+  <span class="o">.</span><span class="n">get_value</span><span class="p">())</span>
+
+<span class="n">x_sentiment_test_selected</span> <span class="o">=</span> <span class="p">(</span>
+  <span class="n">Transformer</span><span class="p">(</span><span class="n">x_sentiment_test</span><span class="p">)</span>
+  <span class="o">.</span><span class="n">vectorizer</span><span class="p">()</span>
+  <span class="o">.</span><span class="n">selector</span><span class="p">(</span><span class="n">selector_sentiment</span><span class="p">)</span>
+  <span class="o">.</span><span class="n">get_value</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">x_emotion_train</span><span class="p">,</span> <span class="n">x_emotion_test</span><span class="p">,</span> <span class="n">y_emotion_train</span><span class="p">,</span> <span class="n">y_emotion_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+  <span class="n">x</span><span class="p">,</span> <span class="n">y_emotion</span><span class="p">,</span>
+  <span class="n">test_size</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span>
+  <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span>
+  <span class="n">stratify</span><span class="o">=</span><span class="n">y_emotion</span><span class="p">,</span> <span class="p">)</span>
+
+<span class="n">selector_emotion</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span>
+  <span class="n">vectorizer</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">x_emotion_train</span><span class="p">),</span>
+  <span class="n">y_emotion_train</span><span class="p">,</span> <span class="p">)</span>
+
+<span class="n">x_emotion_train_selected</span> <span class="o">=</span> <span class="p">(</span>
+  <span class="n">Transformer</span><span class="p">(</span><span class="n">x_emotion_train</span><span class="p">)</span>
+  <span class="o">.</span><span class="n">vectorizer</span><span class="p">()</span>
+  <span class="o">.</span><span class="n">selector</span><span class="p">(</span><span class="n">selector_emotion</span><span class="p">)</span>
+  <span class="o">.</span><span class="n">get_value</span><span class="p">())</span>
+
+<span class="n">x_emotion_test_selected</span> <span class="o">=</span> <span class="p">(</span>
+  <span class="n">Transformer</span><span class="p">(</span><span class="n">x_emotion_test</span><span class="p">)</span>
+  <span class="o">.</span><span class="n">vectorizer</span><span class="p">()</span>
+  <span class="o">.</span><span class="n">selector</span><span class="p">(</span><span class="n">selector_emotion</span><span class="p">)</span>
+  <span class="o">.</span><span class="n">get_value</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <p>Visualizing the first 10 observations of vectorized data of the sentiment training data</p>
 </div>
 </div>
@@ -9230,36 +9377,6 @@ memory usage: 14.9+ MB
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>Chi-squared test based feature selector to select the most relevant features for a model based on their relationship with the target variable.</p>
-<ul>
-<li><strong>Chi-Squared Test:</strong> The Chi-squared test assesses whether the observed frequencies of features (terms) in the dataset differ significantly from expected frequencies. It measures the independence between features and the target variable.</li>
-<li><strong>Feature Selection with SelectKBest</strong>: SelectKBest uses the Chi-squared test to rank features based on their statistical significance.SelectKBest selects the k features with the highest Chi-squared scores.</li>
-</ul>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">selector_sentiment</span> <span class="o">=</span> <span class="n">SelectKBest</span><span class="p">(</span><span class="n">chi2</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">4500</span><span class="p">)</span>
-<span class="n">selector_emotion</span> <span class="o">=</span> <span class="n">SelectKBest</span><span class="p">(</span><span class="n">chi2</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">4500</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <p>Visualizing the first 10 observations of selected features of the sentiment training data</p>
 </div>
 </div>
@@ -9273,8 +9390,8 @@ memory usage: 14.9+ MB
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
-  <span class="n">selector_sentiment</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">vectorizer</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">x_sentiment_train</span><span class="p">),</span> <span class="n">y_sentiment_train</span><span class="p">)[:</span><span class="mi">10</span><span class="p">]</span><span class="o">.</span><span class="n">toarray</span><span class="p">(),</span>
-  <span class="n">columns</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">vectorizer</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">())[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">selector</span><span class="o">.</span><span class="n">get_support</span><span class="p">())],</span> <span class="p">)</span>
+  <span class="n">selector_sentiment</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">vectorizer</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">x_sentiment_train</span><span class="p">))[:</span><span class="mi">10</span><span class="p">]</span><span class="o">.</span><span class="n">toarray</span><span class="p">(),</span>
+  <span class="n">columns</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">vectorizer</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">())[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">selector_sentiment</span><span class="o">.</span><span class="n">get_support</span><span class="p">())],</span> <span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -9305,27 +9422,27 @@ memory usage: 14.9+ MB
 <thead>
 <tr style="text-align: right;">
 <th></th>
-<th>abandon</th>
+<th>abit curious</th>
+<th>abit funny</th>
 <th>able</th>
+<th>able react</th>
+<th>absence feeling</th>
 <th>absolutely amaze</th>
 <th>absolutely amazed</th>
-<th>absolutely devastate</th>
-<th>absolutely disgust</th>
-<th>absolutely shock</th>
-<th>absolutely stun</th>
-<th>absolutely terrify</th>
-<th>abuse</th>
+<th>absolutely amazing</th>
+<th>absolutely enthral</th>
+<th>absolutely ludicrous</th>
 <th>...</th>
-<th>wouldnt surprise</th>
-<th>wouldve like</th>
-<th>write funny</th>
-<th>wrong</th>
-<th>wrong hurt</th>
-<th>wrong someone</th>
-<th>wrong way</th>
-<th>wronged</th>
-<th>wronged way</th>
-<th>yell</th>
+<th>yastreblyansky</th>
+<th>yeah impress</th>
+<th>yeah scar</th>
+<th>year</th>
+<th>year strange</th>
+<th>yes dont</th>
+<th>yet curious</th>
+<th>yet proud</th>
+<th>youll pleasantly</th>
+<th>youre funny</th>
 </tr>
 </thead>
 <tbody>
@@ -9573,123 +9690,6 @@ memory usage: 14.9+ MB
 </table>
 <p>10 rows × 4500 columns</p>
 </div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>Defining a class to streamline the transformers</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Transformer</span><span class="p">:</span>
-  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span>
-
-  <span class="k">def</span> <span class="nf">vectorizer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">vectorizer</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
-    <span class="k">return</span> <span class="bp">self</span>
-
-  <span class="k">def</span> <span class="nf">selector</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">selector</span><span class="p">):</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">selector</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
-    <span class="k">return</span> <span class="bp">self</span>
-
-  <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>Splitting the training and testing data</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">x_sentiment_train</span><span class="p">,</span> <span class="n">x_sentiment_test</span><span class="p">,</span> <span class="n">y_sentiment_train</span><span class="p">,</span> <span class="n">y_sentiment_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
-  <span class="n">x</span><span class="p">,</span> <span class="n">y_sentiment</span><span class="p">,</span>
-  <span class="n">test_size</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span>
-  <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span>
-  <span class="n">stratify</span><span class="o">=</span><span class="n">y_sentiment</span><span class="p">,</span> <span class="p">)</span>
-
-<span class="n">selector_sentiment</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span>
-  <span class="n">vectorizer</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">x_sentiment_train</span><span class="p">),</span>
-  <span class="n">y_sentiment_train</span><span class="p">,</span> <span class="p">)</span>
-
-<span class="n">x_sentiment_train_selected</span> <span class="o">=</span> <span class="p">(</span>
-  <span class="n">Transformer</span><span class="p">(</span><span class="n">x_sentiment_train</span><span class="p">)</span>
-  <span class="o">.</span><span class="n">vectorizer</span><span class="p">()</span>
-  <span class="o">.</span><span class="n">selector</span><span class="p">(</span><span class="n">selector_sentiment</span><span class="p">)</span>
-  <span class="o">.</span><span class="n">get_value</span><span class="p">())</span>
-
-<span class="n">x_sentiment_test_selected</span> <span class="o">=</span> <span class="p">(</span>
-  <span class="n">Transformer</span><span class="p">(</span><span class="n">x_sentiment_test</span><span class="p">)</span>
-  <span class="o">.</span><span class="n">vectorizer</span><span class="p">()</span>
-  <span class="o">.</span><span class="n">selector</span><span class="p">(</span><span class="n">selector_sentiment</span><span class="p">)</span>
-  <span class="o">.</span><span class="n">get_value</span><span class="p">())</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">x_emotion_train</span><span class="p">,</span> <span class="n">x_emotion_test</span><span class="p">,</span> <span class="n">y_emotion_train</span><span class="p">,</span> <span class="n">y_emotion_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
-  <span class="n">x</span><span class="p">,</span> <span class="n">y_emotion</span><span class="p">,</span>
-  <span class="n">test_size</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span>
-  <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span>
-  <span class="n">stratify</span><span class="o">=</span><span class="n">y_emotion</span><span class="p">,</span> <span class="p">)</span>
-
-<span class="n">selector_emotion</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span>
-  <span class="n">vectorizer</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">x_emotion_train</span><span class="p">),</span>
-  <span class="n">y_emotion_train</span><span class="p">,</span> <span class="p">)</span>
-
-<span class="n">x_emotion_train_selected</span> <span class="o">=</span> <span class="p">(</span>
-  <span class="n">Transformer</span><span class="p">(</span><span class="n">x_emotion_train</span><span class="p">)</span>
-  <span class="o">.</span><span class="n">vectorizer</span><span class="p">()</span>
-  <span class="o">.</span><span class="n">selector</span><span class="p">(</span><span class="n">selector_emotion</span><span class="p">)</span>
-  <span class="o">.</span><span class="n">get_value</span><span class="p">())</span>
-
-<span class="n">x_emotion_test_selected</span> <span class="o">=</span> <span class="p">(</span>
-  <span class="n">Transformer</span><span class="p">(</span><span class="n">x_emotion_test</span><span class="p">)</span>
-  <span class="o">.</span><span class="n">vectorizer</span><span class="p">()</span>
-  <span class="o">.</span><span class="n">selector</span><span class="p">(</span><span class="n">selector_emotion</span><span class="p">)</span>
-  <span class="o">.</span><span class="n">get_value</span><span class="p">())</span>
-</pre></div>
 </div>
 </div>
 </div>
