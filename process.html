@@ -7544,8 +7544,10 @@ a.anchor-link {
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
-<span class="kn">from</span> <span class="nn">nltk</span> <span class="kn">import</span> <span class="n">pos_tag</span>
+<span class="kn">from</span> <span class="nn">nltk</span> <span class="kn">import</span> <span class="n">pos_tag</span><span class="p">,</span> <span class="n">sent_tokenize</span><span class="p">,</span> <span class="n">RegexpParser</span>
 <span class="kn">from</span> <span class="nn">nltk.corpus</span> <span class="kn">import</span> <span class="n">stopwords</span><span class="p">,</span> <span class="n">wordnet</span>
+<span class="kn">from</span> <span class="nn">nltk</span> <span class="kn">import</span> <span class="n">pos_tag</span><span class="p">,</span> <span class="n">ne_chunk</span>
+<span class="kn">from</span> <span class="nn">nltk.tree</span> <span class="kn">import</span> <span class="n">Tree</span>
 <span class="kn">from</span> <span class="nn">nltk.stem</span> <span class="kn">import</span> <span class="n">WordNetLemmatizer</span>
 <span class="kn">from</span> <span class="nn">nltk.tokenize</span> <span class="kn">import</span> <span class="n">WordPunctTokenizer</span>
 </pre></div>
@@ -7568,6 +7570,11 @@ a.anchor-link {
 <span class="n">nltk</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s1">'omw-1.4'</span><span class="p">)</span>
 <span class="n">nltk</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s1">'averaged_perceptron_tagger'</span><span class="p">)</span>
 <span class="n">nltk</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s1">'averaged_perceptron_tagger_eng'</span><span class="p">)</span>
+<span class="n">nltk</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s1">'maxent_ne_chunker'</span><span class="p">)</span>
+<span class="n">nltk</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s1">'words'</span><span class="p">)</span>
+<span class="n">nltk</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s1">'maxent_ne_chunker_tab'</span><span class="p">)</span>
+<span class="n">nltk</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s1">'tagsets'</span><span class="p">)</span>
+<span class="n">nltk</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s1">'tagsets_json'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -7600,6 +7607,25 @@ a.anchor-link {
 [nltk_data]     /home/cabrera/nltk_data...
 [nltk_data]   Package averaged_perceptron_tagger_eng is already up-to-
 [nltk_data]       date!
+[nltk_data] Downloading package maxent_ne_chunker to
+[nltk_data]     /home/cabrera/nltk_data...
+[nltk_data]   Package maxent_ne_chunker is already up-to-date!
+[nltk_data] Downloading package words to /home/cabrera/nltk_data...
+[nltk_data]   Package words is already up-to-date!
+[nltk_data] Downloading package maxent_ne_chunker_tab to
+[nltk_data]     /home/cabrera/nltk_data...
+[nltk_data]   Package maxent_ne_chunker_tab is already up-to-date!
+[nltk_data] Downloading package tagsets to /home/cabrera/nltk_data...
+[nltk_data]   Package tagsets is already up-to-date!
+[nltk_data] Downloading package tagsets_json to
+[nltk_data]     /home/cabrera/nltk_data...
+</pre>
+</div>
+</div>
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr" tabindex="0">
+<pre>[nltk_data]   Unzipping help/tagsets_json.zip.
 </pre>
 </div>
 </div>
@@ -7947,6 +7973,283 @@ In my opinion, the impact of online anonymity is largely context-dependent; it c
 I believe online anonymity amplifies both the best and worst aspects of human behavior, pr... 	sentiment: negative 	emotion: sadness
 I think online anonymity allows people to connect more authentically, but it can also lead... 	sentiment: negative 	emotion: joy
 </pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>Subject-Verb-Object Extraction</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">tagdict</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">'help/tagsets/upenn_tagset.pickle'</span><span class="p">)</span>
+<span class="n">tokenizer</span> <span class="o">=</span> <span class="n">WordPunctTokenizer</span><span class="p">()</span>
+
+<span class="n">tokens</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="n">responses</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">tagged_tokens</span> <span class="o">=</span> <span class="n">pos_tag</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">tagged_token</span> <span class="ow">in</span> <span class="n">tagged_tokens</span><span class="p">:</span>
+  <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">tagged_token</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> </span><span class="se">\t\t\t</span><span class="s2">[</span><span class="si">{</span><span class="n">tagged_token</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">tagdict</span><span class="p">[</span><span class="n">tagged_token</span><span class="p">[</span><span class="mi">1</span><span class="p">]][</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>I 			[PRP] pronoun, personal
+believe 			[VBP] verb, present tense, not 3rd person singular
+online 			[JJ] adjective or numeral, ordinal
+anonymity 			[NN] noun, common, singular or mass
+encourages 			[VBZ] verb, present tense, 3rd person singular
+more 			[JJR] adjective, comparative
+honest 			[JJ] adjective or numeral, ordinal
+and 			[CC] conjunction, coordinating
+open 			[JJ] adjective or numeral, ordinal
+communication 			[NN] noun, common, singular or mass
+, 			[,] comma
+allowing 			[VBG] verb, present participle or gerund
+users 			[NNS] noun, common, plural
+to 			[TO] "to" as preposition or infinitive marker
+express 			[VB] verb, base form
+their 			[PRP$] pronoun, possessive
+true 			[JJ] adjective or numeral, ordinal
+opinions 			[NNS] noun, common, plural
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">tokenizer</span> <span class="o">=</span> <span class="n">WordPunctTokenizer</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">response</span> <span class="ow">in</span> <span class="n">responses</span><span class="p">:</span>
+  <span class="n">tokens</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+  <span class="n">tagged_tokens</span> <span class="o">=</span> <span class="n">pos_tag</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span>
+
+  <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">token</span><span class="p">,</span> <span class="n">tag</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">tagged_tokens</span><span class="p">):</span>
+    
+    <span class="c1"># Verb might indicate relationship</span>
+    <span class="k">if</span> <span class="n">tag</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">'VB'</span><span class="p">):</span>
+      <span class="n">verb</span> <span class="o">=</span> <span class="n">token</span>
+      <span class="n">subj</span> <span class="o">=</span> <span class="kc">None</span>
+      <span class="n">obj</span> <span class="o">=</span> <span class="kc">None</span>
+      
+      <span class="c1"># Look for the nearest noun or pronoun before the verb</span>
+      <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">tagged_tokens</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">'NN'</span><span class="p">):</span>
+          <span class="n">subj</span> <span class="o">=</span> <span class="n">tagged_tokens</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+          <span class="k">break</span>
+        
+      <span class="c1"># Look for the nearest noun or pronoun after the verb</span>
+      <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">tagged_tokens</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="n">tagged_tokens</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">'NN'</span><span class="p">):</span>
+          <span class="n">obj</span> <span class="o">=</span> <span class="n">tagged_tokens</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+          <span class="k">break</span>
+      
+      <span class="k">if</span> <span class="n">subj</span> <span class="ow">and</span> <span class="n">obj</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">subj</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">verb</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">obj</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>anonymity encourages communication
+communication allowing users
+users express opinions
+anonymity lead increase
+users feel accountability
+users shielded accountability
+anonymity provides sword
+anonymity edged sword
+sword allows expression
+expression creates environment
+people engage harmful
+empowers marginalized voices
+voices speak content
+voices makes content
+voices identify content
+voices address content
+factor fostering discussions
+discussions contributes spread
+anonymity lead interactions
+communities reduce quality
+discourse enabling users
+users avoid responsibility
+online is privacy
+privacy encourage users
+users engage behavior
+behavior avoid identity
+anonymity is dependent
+dependent promote behaviors
+behaviors depending platform
+behavior providing space
+anonymity allows people
+people connect lack
+people lead lack
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">tokenizer</span> <span class="o">=</span> <span class="n">WordPunctTokenizer</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">response</span> <span class="ow">in</span> <span class="n">responses</span><span class="p">:</span>
+  <span class="n">tokens</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+  <span class="n">tagged_tokens</span> <span class="o">=</span> <span class="n">pos_tag</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span>
+
+  <span class="n">grammar</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">"""</span>
+<span class="s2">    NP: {&lt;DT&gt;?&lt;JJ.*&gt;*&lt;NN.*&gt;+}</span>
+<span class="s2">    VP: {&lt;VB.*&gt;&lt;NP|PP|CLAUSE&gt;+}</span>
+<span class="s2">    CLAUSE: {&lt;NP&gt;&lt;VP&gt;}</span>
+<span class="s2">  """</span>
+
+  <span class="n">chunker</span> <span class="o">=</span> <span class="n">RegexpParser</span><span class="p">(</span><span class="n">grammar</span><span class="p">)</span>
+  <span class="n">chunked</span> <span class="o">=</span> <span class="n">chunker</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">tagged_tokens</span><span class="p">)</span>
+  
+  <span class="k">for</span> <span class="n">tagged_token_group</span> <span class="ow">in</span> <span class="n">chunked</span><span class="p">:</span>
+    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">tagged_token_group</span><span class="p">)</span> <span class="o">==</span> <span class="n">nltk</span><span class="o">.</span><span class="n">Tree</span><span class="p">:</span>
+      <span class="n">subtree</span> <span class="o">=</span> <span class="n">tagged_token_group</span>
+      <span class="k">if</span> <span class="n">subtree</span><span class="o">.</span><span class="n">label</span><span class="p">()</span> <span class="o">==</span> <span class="s2">"CLAUSE"</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">" "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">word</span> <span class="k">for</span> <span class="n">word</span><span class="p">,</span><span class="n">tag</span> <span class="ow">in</span> <span class="n">subtree</span><span class="o">.</span><span class="n">leaves</span><span class="p">()))</span>
+      
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>Online anonymity empowers marginalized voices
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">tokenizer</span> <span class="o">=</span> <span class="n">WordPunctTokenizer</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">response</span> <span class="ow">in</span> <span class="n">responses</span><span class="p">:</span>
+  <span class="n">tokens</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+  <span class="n">tagged_tokens</span> <span class="o">=</span> <span class="n">pos_tag</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span>
+
+  <span class="n">grammar</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">"""</span>
+<span class="s2">    NP: {&lt;DT&gt;?&lt;JJ.*&gt;*&lt;NN.*&gt;+}</span>
+<span class="s2">    VP: {&lt;VB.*&gt;&lt;NP|PP|CLAUSE&gt;+}</span>
+<span class="s2">  """</span>
+
+  <span class="n">chunker</span> <span class="o">=</span> <span class="n">RegexpParser</span><span class="p">(</span><span class="n">grammar</span><span class="p">)</span>
+  <span class="n">chunked</span> <span class="o">=</span> <span class="n">chunker</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">tagged_tokens</span><span class="p">)</span>
+  
+  <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">tagged_token</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">chunked</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">tagged_token</span><span class="p">)</span> <span class="o">==</span> <span class="n">nltk</span><span class="o">.</span><span class="n">Tree</span><span class="p">:</span>
+      <span class="n">subtree</span> <span class="o">=</span> <span class="n">tagged_token</span>
+      
+      <span class="k">if</span> <span class="n">subtree</span><span class="o">.</span><span class="n">label</span><span class="p">()</span> <span class="o">==</span> <span class="s1">'VP'</span><span class="p">:</span>
+        <span class="n">verb_phrase</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">start_noun_phrase</span> <span class="o">=</span> <span class="kc">None</span>
+        
+        <span class="n">verb_phrase</span> <span class="o">=</span> <span class="s2">" "</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">word</span> <span class="k">for</span> <span class="n">word</span><span class="p">,</span><span class="n">tag</span> <span class="ow">in</span> <span class="n">subtree</span><span class="o">.</span><span class="n">leaves</span><span class="p">()])</span>
+        
+        <span class="c1"># Look for the nearest noun phrase before verb phrase </span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+          <span class="n">tagged_token_group</span> <span class="o">=</span> <span class="n">chunked</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+          <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">tagged_token_group</span><span class="p">)</span> <span class="o">==</span> <span class="n">nltk</span><span class="o">.</span><span class="n">Tree</span> <span class="ow">and</span> <span class="n">tagged_token_group</span><span class="o">.</span><span class="n">label</span><span class="p">()</span> <span class="o">==</span> <span class="s1">'NP'</span><span class="p">:</span>
+            <span class="n">start_noun_phrase</span> <span class="o">=</span> <span class="s2">" "</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">word</span> <span class="k">for</span> <span class="n">word</span><span class="p">,</span><span class="n">tag</span> <span class="ow">in</span> <span class="n">tagged_token_group</span><span class="o">.</span><span class="n">leaves</span><span class="p">()])</span>
+            <span class="k">break</span>
+          
+        <span class="k">if</span> <span class="n">start_noun_phrase</span> <span class="ow">and</span> <span class="n">verb_phrase</span><span class="p">:</span>
+          <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">start_noun_phrase</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">verb_phrase</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>open communication allowing users
+free expression creates an environment
+Online anonymity empowers marginalized voices
+Online anonymity empowers address harmful content
+a critical factor fostering diverse discussions
+certain communities reduce the quality
+discourse enabling users
+discourse avoid responsibility
+privacy encourage users
+human behavior providing a space
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
 </div>
 </div>
 </div>
