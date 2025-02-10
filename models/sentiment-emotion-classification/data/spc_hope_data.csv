@@ -1,0 +1,104 @@
+post_id,post_content,predicted_sentiment,predicted_emotion,true_sentiment,true_emotion,created_at
+21,Horrible and underwhelmed,negative,sadness,negative,sadness,2025-02-07 01:45:43
+22,Tired and dissatisfied,negative,anger,negative,anger,2025-02-07 01:47:57
+23,Very Happy,positive,joy,positive,joy,2025-02-07 01:50:02
+24,Fine and good.,positive,joy,positive,joy,2025-02-07 01:50:10
+25,I'm happy with the stability of income and how welcoming and friendly the faculty and staff are,positive,joy,positive,joy,2025-02-07 01:50:18
+26,very Happy,positive,joy,positive,joy,2025-02-07 01:50:37
+27,People around me helps me to get through my everyday life as a student of SPC,positive,joy,positive,joy,2025-02-07 01:50:47
+28,"I guess I'm slightly in favour. They've made improvements, but I feel it doesn't accomodate all learning styles. Although, I could say that about every school. The education system sucks ass.",positive,joy,neutral,anger,2025-02-07 01:50:52
+29,"Neutral, Im happy because of the friends i made from that school but kinda sad Because Im always exhausted after the class",negative,sadness,neutral,sadness,2025-02-07 01:50:53
+30,very happy,positive,joy,positive,joy,2025-02-07 01:51:00
+31,my current feelings as a member of spc community is that im happy that i meet more friends and my hope in spc is that i hope it continues to be a healthy community in or outside the campus,positive,joy,positive,joy,2025-02-07 01:51:46
+32,Very very happy,positive,joy,positive,joy,2025-02-07 01:52:28
+33,Good very good,positive,joy,positive,joy,2025-02-07 01:52:37
+34,glad to make new friends within the community,positive,joy,positive,joy,2025-02-07 01:52:41
+36,So so. I am happy to be part of the SPC Community but sometimes it's frustrating if you want to achieve something for the school but we have lack of resources.,positive,joy,positive,joy,2025-02-07 01:55:06
+37,My current feelings as a member of SPC community is a little sad and bored. Right now spc is so quiet. There is no exciting event.,negative,sadness,negative,sadness,2025-02-07 01:56:54
+38,Averagely happy,positive,joy,positive,joy,2025-02-07 01:57:30
+39,Very very happy,positive,joy,positive,joy,2025-02-07 01:59:48
+40,Tired of waiting and lost hope for improvement due to lack of community understanding,negative,joy,negative,sadness,2025-02-07 02:00:57
+41,"I think a bit usual, nothing is surprising or exciting. It's okay, I guess. Nothing engaging as usual, but meh.",negative,fear,neutral,sadness,2025-02-07 02:02:14
+47,Hard to achieve goals,positive,joy,negative,sadness,2025-02-07 02:05:58
+48,Excited for all the upcoming activities for the PGM.,positive,joy,positive,joy,2025-02-07 02:07:40
+49,I met decent people,positive,joy,positive,joy,2025-02-07 02:11:26
+50,Stressed but still happy and satisfied . Still hoping for a University Status of San Pablo Colleges.,positive,sadness,positive,joy,2025-02-07 02:14:43
+51,jubilant,positive,joy,positive,joy,2025-02-07 02:21:16
+52,"As a member of the SPC community, I feel happy and hopeful because of the support, learning opportunities, and strong sense of belonging.",positive,joy,positive,joy,2025-02-07 02:21:18
+53,"I feel challenged because the tuition keeps increasing, and there are so many fees to pay.",positive,joy,negative,sadness,2025-02-07 02:21:22
+54,Its feel amazing and nice because i met a lot of people this day after my previous school and i see all professor or teacher that handle our section is so nice and really good at teaching and i love also the events. Its really happy to be part of this school while taking my dream course because they really help the student.,positive,joy,positive,love,2025-02-07 02:21:35
+55,"as a shs graduated SPCian batch 23-24, im happy for the SPC because they keep upgrading the school and hearing out the students wants like the air conditioning, im happy that the school are hearing out the students",positive,joy,positive,sadness,2025-02-07 02:21:44
+56,"As a member of the SPC community, I'm overflowing with happiness and hope!  It's a feeling that's hard to put into words, but it's like a warm hug on a cold day.  I'm so grateful for the connections I've made, the support I've received, and the opportunities I've been given.  The sense of belonging is incredible, and I know that I'm surrounded by people who care about me and want to see me succeed.  That alone fills me with so much hope for the future, both for myself and for the entire SPC community.",positive,joy,positive,love,2025-02-07 02:21:55
+57,I describe my feelings as a contentment in my heart. I feel glad that I have found a second fami,positive,joy,positive,love,2025-02-07 02:22:29
+58,I don't know the feeling but because of the members or my classmates that became my friends. It feels like there is hope for me to have friends. I am thankful for spc and its members for giving me hope.,positive,joy,positive,joy,2025-02-07 02:24:07
+59,"As a first-year nursing student at SPC, I feel a mix of happiness and pressure. I'm excited about my journey and the opportunities ahead, but at the same time, I feel the weight of expectations, especially in comparison to my classmates.",negative,joy,positive,joy,2025-02-07 02:24:36
+60,"Uhm, I feel mixed emotions. Yes, I’m happy to be part of this school at the same time overwhelmed because of the load of school works. That’s how I feel.",positive,joy,neutral,joy,2025-02-07 02:24:37
+61,"As of the moment, I feel incomplete because there so many things happened during this 2nd semester. But, with all of that I'm still happy that my friends are still there to make it more comfy with their presence when life is getting too much to handle.",positive,joy,neutral,joy,2025-02-07 02:25:19
+62,grateful,positive,joy,positive,joy,2025-02-07 02:25:30
+63,I'm so happy and as a member of spc it's kinda challenging but happy,positive,joy,positive,joy,2025-02-07 02:29:07
+64,"I'm happy at SPC, even though I'm still adjusting to the new environment. The members and faculty of SPC are very kind and approachable, making it easier to adapt. As part of the SPC community, my hope grows because of the professors who tirelessly guide, remind, and encourage us to keep pursuing our dreams.",positive,joy,positive,joy,2025-02-07 02:30:38
+65,"I would describe my current feeling of happiness by feeling a joy, excitement and gratitude. I always feeling hopeful that I am going to learn something new and going to have fun in many ways.",positive,joy,positive,joy,2025-02-07 02:31:14
+66,"As a member of the SPC community, I feel a deep sense of happiness and hope, fueled by the growth and supportive environment around me. SPC provides not just opportunities for academic and personal development, but also a strong network of encouragement that empowers me to reach my goals.",positive,joy,positive,joy,2025-02-07 02:31:42
+67,I am happy and gratitude and motivated.,positive,joy,positive,joy,2025-02-07 02:32:04
+68,I am elated to be a member of the SPC community.,positive,joy,positive,joy,2025-02-07 02:32:42
+70,I feel excited and I look forward to the new experiences and learning opportunities SPC will bring.,positive,joy,positive,joy,2025-02-07 02:35:05
+71,In my case it's at the 6.5/10. The experience were fun and currently even though there times where not feeling at ease. It's bearable and I don't feel much of a outsider compare to the other community I've been to.,positive,joy,neutral,joy,2025-02-07 02:36:47
+72,Still hopeful; prefers to be cheerful and with strong will to continue.,positive,joy,positive,joy,2025-02-07 02:37:07
+73,"I would describe my current feelings of hapiness and hope as a member of the SPC community as a sun. Just like the sunrise and sunset, there are times that I feel joyful in every moments that I had with my friends, teachers, and also my fellow SPCians. Also there are times that I feel lonely whenever I have a mental health problems in my academics. Through the phases of sunrise and sunset, I know that there is a hope that awaits for me and I know that SPC will guide me.",positive,joy,positive,joy,2025-02-07 02:40:21
+74,"In my case. It's a least 6.5/10. The other students and pressure were much bearable compare to the other community I've been to. Still however there's still things to criticize regarding it's equipment, hygiene and academics.",negative,joy,neutral,joy,2025-02-07 02:42:35
+75,During those months of being part of Spc community i enjoy most of my everyday life here at spc,positive,joy,positive,joy,2025-02-07 02:44:32
+76,HAPPY AND THANKFUL,positive,joy,positive,joy,2025-02-07 02:45:35
+77,"I would describe my experience as being enlightened. Joining the SPC community opened a new door for me to explore the world, find my passion, and I did.",positive,joy,positive,joy,2025-02-07 02:54:57
+78,I'm fine here.,positive,joy,positive,joy,2025-02-07 02:56:30
+79,Being a member of SPC community is very expensive but so fullfiling and just purely mix emotions.,positive,joy,neutral,joy,2025-02-07 02:56:54
+80,exhausted,negative,sadness,negative,sadness,2025-02-07 02:57:33
+81,Exhausted,negative,sadness,negative,sadness,2025-02-07 02:58:46
+82,Fun and memorable,positive,joy,positive,joy,2025-02-07 02:58:48
+83,i believe i feel just fine in this community. because i've been here for three years and i can say that i'm comfortable and contented.,positive,joy,positive,joy,2025-02-07 03:05:07
+84,always hungry,negative,sadness,neutral,sadness,2025-02-07 03:06:03
+85,"I feel happy despite of the struggles and challenges I face as a nursing student, because of the teachers and my friends, somehow I still feel great.",positive,joy,positive,joy,2025-02-07 03:07:26
+86,I would describe it as the “bliss of everything”.,positive,joy,positive,joy,2025-02-07 03:07:55
+87,Neutral. Because even with the fun times being SPCians theres also times that I question how this school works so I say that its neutral,positive,joy,neutral,joy,2025-02-07 03:08:29
+88,"I will discribe my happiness as a member of spc community, When we hang-out with my fellow stufent also my fellow student here our super friendly they easy along with and my hope is when we help each other.",positive,joy,positive,joy,2025-02-07 03:10:06
+89,It's a lightweight feeling that can remove my fatigue away despite the difficulties that I encountered.,negative,love,positive,joy,2025-02-07 03:12:31
+90,"It feels like you're going up.. Up to the heaven...
+
+Because not just it's challenging but also make u a good person.",positive,joy,positive,joy,2025-02-07 03:12:57
+91,Well first and foremost I feel happy and delighted. Lastly would be joyful about being one.,positive,joy,positive,joy,2025-02-07 03:13:52
+92,I'm very happy that this school is so welcoming and it feels like I'm home and i hope they continue bringing knowledge and smiles to the future generations,positive,joy,positive,joy,2025-02-07 03:17:16
+93,"As a member of the SPC community, my current feelings of happiness and hope is like a weather because it is changing and bring challenges.",negative,joy,neutral,joy,2025-02-07 03:17:20
+94,Holistically Complete and Happy,positive,joy,positive,joy,2025-02-07 03:19:52
+95,"As a member of the SPC community, I feel a holistic development that improves my daily living. I always feel joy and love in everything I do.",positive,joy,positive,joy,2025-02-07 04:07:09
+96,"It’s welcoming, although some teacher would be cold towards you even when you greet them.",positive,anger,neutral,anger,2025-02-07 04:29:19
+97,I feel content but i can see that there are still room for improvement to get a much more satisfying experience.,positive,joy,positive,joy,2025-02-07 04:52:52
+98,Happy and chill,positive,joy,positive,joy,2025-02-07 04:53:21
+99,Hope dwindling and lost patience after waiting for so long,negative,sadness,negative,sadness,2025-02-07 05:04:32
+100,Disappointed due to constant promise of improvement but end up not fulfilling what has been promised,positive,sadness,negative,anger,2025-02-07 05:08:40
+101,I don't know atm.,negative,sadness,negative,sadness,2025-02-07 05:10:00
+102,Disappointment due to continuously increasing tuition with stagnant improvements,negative,sadness,negative,anger,2025-02-07 05:12:36
+103,I am currently having fun studying at SPC because of the experiences I had here and the experiences that I am looking forward to have. I can describe my feelings through my actions that I am really excited to learn here in SPC.,positive,joy,positive,joy,2025-02-07 05:30:18
+104,"As a member of the SPC community, my feelings are a vibrant mix of happiness and hope, constantly evolving like the tide.",positive,joy,positive,joy,2025-02-07 05:53:02
+105,Inspiring and welcoming,positive,joy,positive,joy,2025-02-07 09:10:03
+106,It is a mix of both happy and mediocre as I have made already some memorable experiences at the community however there were times that we are required to spend money on extracurricular activities that are not required in our courses.,positive,joy,positive,joy,2025-02-07 09:28:14
+107,"my current feelings of happiness and hope come from the strong sense of belonging and support within this environment. I feel joy in the friendships I've built and the opportunities for growth and learning every day. The encouragement from teachers, peers, and the shared values of faith and service inspire me to look forward with optimism.",positive,joy,positive,joy,2025-02-07 10:32:14
+108,"I can feel the happiness because of the experiences and friends that spc had given to me, but sometimes there is also pressure and fear about what might happen everytime that I am in the middle of learning.",negative,joy,positive,joy,2025-02-07 11:49:20
+109,"im happy in general as an spcian but in particular, i like the events that we do",positive,joy,positive,joy,2025-02-07 12:51:19
+110,"It's alright, It's not that fun but it is alright.",negative,joy,positive,joy,2025-02-07 12:58:13
+111,Quite tiring but worth it,negative,joy,positive,joy,2025-02-07 14:59:58
+112,"Being part of the SPC likely brings a sense of happiness from being in a supportive, interconnected environment where everyone is growing together. There’s also hope in the continuity of education and the belief that each student, regardless of age, can reach their potential and succeed.",positive,joy,positive,joy,2025-02-07 15:02:06
+113,it’s good,positive,joy,positive,joy,2025-02-07 15:02:56
+114,I am disappointed tuition constantly increasing and little to no improvement with infrastructure and facilities,negative,sadness,negative,anger,2025-02-07 15:22:06
+115,I'm happy and hopeful about the SPC community.,positive,joy,positive,joy,2025-02-07 23:39:19
+116,still hoping for the betterment of its community,positive,joy,positive,joy,2025-02-07 23:41:50
+117,im feeling excited,positive,joy,positive,joy,2025-02-07 23:59:25
+118,I'm expecting so much more into this community,positive,joy,positive,joy,2025-02-08 00:00:34
+119,I am Blessed,positive,joy,positive,joy,2025-02-08 00:01:10
+120,I am very thrilled to be part of SPC community,positive,joy,positive,joy,2025-02-08 06:49:59
+121,"As a member of the SPC community, I feel a deep sense of happiness from the friendships, support, and opportunities around me, and I am hopeful for the future, knowing that I am growing, learning, and working toward my dreams.",positive,joy,positive,joy,2025-02-08 06:57:02
+122,I feel positive enjoying the chance to help however I can.,positive,joy,positive,joy,2025-02-08 06:57:20
+123,Its good and grateful,positive,joy,positive,joy,2025-02-08 07:00:43
+124,"As an SPC student, the feelings of happiness and hope might come from the supportive learning environment, opportunities for growth, and the sense of community on campus. Whether it's engaging with professors, connecting with classmates, or working toward your goals, SPC likely provides a foundation for both personal and academic success.",positive,joy,positive,joy,2025-02-08 07:08:21
+125,It's very happy because of the teachers na best magturo,positive,joy,positive,joy,2025-02-08 07:29:08
+126,Satisfied and happier,positive,joy,positive,joy,2025-02-08 07:51:36
+127,I feel motivated to study harder to achieve my goals in life.,positive,joy,negative,sadness,2025-02-09 12:03:39
+128,"Disappointed due to abysmally slow improvement of infrastructure, tech and declining quality overall productivity",negative,sadness,negative,anger,2025-02-09 13:24:26
